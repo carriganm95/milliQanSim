@@ -181,16 +181,16 @@ std::vector<double> maxValues = {
             for (int bin = 0; bin < nBins; ++bin) waveform[digitizer][channel][bin] = 0.0;
 
             for (int bin = 0; bin < nBins; ++bin) {
-                int shifted_bin = bin + integer_shift;
-                if (shifted_bin >= nBins - 1 || shifted_bin < 0) continue;
+                int shifted_bin = bin - integer_shift;
+                if (shifted_bin >= nBins || shifted_bin < 1) continue;
 
-                double value = (1.0 - fractional_shift) * new_waveform->GetBinContent(shifted_bin + 1) +
-                               fractional_shift * new_waveform->GetBinContent(shifted_bin + 2);
+                double value = (1.0 - fractional_shift) * new_waveform->GetBinContent(shifted_bin) +
+                               fractional_shift * new_waveform->GetBinContent(shifted_bin - 1);
                 double noise = randGen.Gaus(0, rms_noise);
-                waveform[digitizer][channel][shifted_bin] += (value + noise);
+                waveform[digitizer][channel][bin] += (value + noise);
 
-                if (waveform[digitizer][channel][shifted_bin] > maxValues[remappedPMT]) waveform[digitizer][channel][shifted_bin] = maxValues[remappedPMT];
-                if (waveform[digitizer][channel][shifted_bin] < -50) waveform[digitizer][channel][shifted_bin] = -50;
+                if (waveform[digitizer][channel][bin] > maxValues[remappedPMT]) waveform[digitizer][channel][bin] = maxValues[remappedPMT];
+                if (waveform[digitizer][channel][bin] < -50) waveform[digitizer][channel][bin] = -50;
             }
 
             for (int bin = 0; bin < integer_shift; ++bin) waveform[digitizer][channel][bin] = 0.0;
@@ -219,11 +219,11 @@ std::vector<double> maxValues = {
                //for (int bin = 0; bin < nBins; ++bin) waveform[digitizer][channel][bin] = 0.0;
 
                for (int bin = 0; bin < nBins; ++bin) {
-                  int shifted_bin = bin + integer_shift;
-                  if (shifted_bin >= nBins - 1 || shifted_bin < 0) continue;
+                  int shifted_bin = bin - integer_shift;
+                  if (shifted_bin >= nBins || shifted_bin < 1) continue;
 
-                  double value = (1.0 - fractional_shift) * new_waveform->GetBinContent(shifted_bin + 1) +
-                                 fractional_shift * new_waveform->GetBinContent(shifted_bin + 2);
+                  double value = (1.0 - fractional_shift) * new_waveform->GetBinContent(shifted_bin) +
+                                 fractional_shift * new_waveform->GetBinContent(shifted_bin - 1);
 		  waveform[digitizer][channel][bin] += (value);
 
                }
