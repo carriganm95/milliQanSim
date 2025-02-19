@@ -115,7 +115,7 @@ std::vector<double> maxValues = {
     1250, 1250, 1250, 1250,
 };
 
-   TRandom3 randGen(0);
+   TRandom3 randGen(2004);
    Long64_t nentries = rootEvents.GetEntries();
    std::cout << "Entries: " << nentries << std::endl;
 
