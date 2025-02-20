@@ -169,7 +169,7 @@ std::vector<double> maxValues = {
             //new_waveform->Scale(areaSum * (1077.24 / 828.03) / new_waveform->Integral(480, 640));
             
 	    // Scale only the bins within [500, 660]
-            double scaleFactor = areaSum * (1077.24 / 828.03) / new_waveform->Integral(480, 640);
+            double scaleFactor = areaSum / (828.03) * (44.8573/59.0878); //sample area, then scale by the pulse height for SPEs in data
             for (int bin = 500; bin <= 660; ++bin) {
                 double binContent = new_waveform->GetBinContent(bin);
                 new_waveform->SetBinContent(bin, binContent * scaleFactor);
@@ -207,7 +207,7 @@ std::vector<double> maxValues = {
                //new_waveform->Scale(event_area * (1077.24 / 828.03) / new_waveform->Integral(480, 640));
 	       
 	       // Scale only the bins within [500, 660]
-               double scaleFactor = event_area * (1077.24 / 828.03) / new_waveform->Integral(480, 640);
+               double scaleFactor = event_area / (828.03) * (44.8573/59.0878);
                for (int bin = 500; bin <= 660; ++bin) {
                    double binContent = new_waveform->GetBinContent(bin);
                    new_waveform->SetBinContent(bin, binContent * scaleFactor);
