@@ -162,7 +162,7 @@ std::vector<double> maxValues = {
             median_hit_time = hitTimes[size / 2];
          }
 */
-         double first_hit_time = hitTimes[0];
+         double initial_hit_time = hitTimes[0];
 	 double calibration = (remappedPMT < 64) ? cali[remappedPMT] : 0.682;
 	 if (hits.size() > 5000) {
             double areaSum = 0.0;
