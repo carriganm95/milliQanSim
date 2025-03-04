@@ -147,19 +147,24 @@ std::vector<double> maxValues = {
             if(hit->GetFirstHitTime() > 500.0 ) continue;
 	    hitTimes.push_back(hit->GetFirstHitTime());
          }
+
+
 	 if(hitTimes.size()==0) continue;
          std::sort(hitTimes.begin(), hitTimes.end());
 
          // Calculate median hit time
-         double median_hit_time;
+/*
+	 double median_hit_time;
          size_t size = hitTimes.size();
          if (size % 2 == 0) {
             median_hit_time = 0.5 * (hitTimes[size / 2 - 1] + hitTimes[size / 2]);
          } else {
             median_hit_time = hitTimes[size / 2];
          }
-         double calibration = (remappedPMT < 64) ? cali[remappedPMT] : 0.682;
-	 if (hits.size() > 50) {
+*/
+         double first_hit_time = hitTimes[0];
+	 double calibration = (remappedPMT < 64) ? cali[remappedPMT] : 0.682;
+	 if (hits.size() > 5000) {
             double areaSum = 0.0;
             for (size_t k = 0; k < hits.size(); ++k) {
                 if(randGen.Uniform() <= calibration) areaSum += fit->GetRandom();
@@ -175,8 +180,12 @@ std::vector<double> maxValues = {
                 new_waveform->SetBinContent(bin, binContent * scaleFactor);
             }
 
-            int integer_shift = static_cast<int>(median_hit_time / binWidth);
-            double fractional_shift = fmod(median_hit_time, binWidth) / binWidth;
+	    int integer_shift = static_cast<int>(initial_hit_time / binWidth);
+            double fractional_shift = fmod(initial_hit_time, binWidth) / binWidth;
+
+	    //uses median time rather than first for large hits
+	    //int integer_shift = static_cast<int>(median_hit_time / binWidth);
+            //double fractional_shift = fmod(median_hit_time, binWidth) / binWidth;
 
             for (int bin = 0; bin < nBins; ++bin) waveform[digitizer][channel][bin] = 0.0;
 
