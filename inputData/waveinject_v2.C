@@ -137,6 +137,9 @@ std::vector<double> maxValues = {
       for (const auto& [PMT_number, hits] : pmtHitsMap) {
          int remappedPMT = simToDataPMT(PMT_number);
          if (remappedPMT == -1) continue;
+         if (remappedPMT == 24) remappedPMT = 78;
+         if (remappedPMT == 25) remappedPMT = 79;
+         if ((remappedPMT == 24) || (remappedPMT == 25)) cout << remappedPMT << endl;
 
          int digitizer = remappedPMT / nChannelsPerDigitizer;
          int channel = remappedPMT % nChannelsPerDigitizer;
