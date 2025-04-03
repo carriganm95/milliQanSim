@@ -230,6 +230,7 @@ std::vector<double> maxValues = {
 
                //for (int bin = 0; bin < nBins; ++bin) waveform[digitizer][channel][bin] = 0.0;
 
+               //for (int bin = 500; bin < 660; ++bin) {
                for (int bin = 0; bin < nBins; ++bin) {
                   int shifted_bin = bin - integer_shift;
                   if (shifted_bin >= nBins || shifted_bin < 1) continue;
@@ -245,6 +246,7 @@ std::vector<double> maxValues = {
                delete new_waveform;
             }
                   for (int bin = 0; bin < nBins; bin++) {
+		        if(bin<500 || bin>660) waveform[digitizer][channel][bin]=0;
                         double noise = randGen.Gaus(0, rms_noise);
 			waveform[digitizer][channel][bin] += noise;
                   	if (waveform[digitizer][channel][bin] > maxValues[remappedPMT]) waveform[digitizer][channel][bin] = maxValues[remappedPMT];
