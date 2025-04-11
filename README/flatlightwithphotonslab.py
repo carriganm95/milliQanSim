@@ -172,7 +172,7 @@ def populate_vectors_pmt(input_tree, pmt_nPE, pmt_copyNo, pmt_time, pmt_layer, p
             pmt_copyNo.push_back(int(dataChan))
             pmt_layer.push_back(int(dataChan/12))
             pmt_row.push_back(int(dataChan%4)+1)
-            pmt_column.push_back(int(dataChan/4)+1)
+            pmt_column.push_back(int((dataChan%12)/4)+1)
             pmt_type.push_back(pmtPosition(j, int(dataChan/4) % 3, int(dataChan%4), int(dataChan/12)))
             
 ##################################################################################################################
